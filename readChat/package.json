@@ -12,5 +12,13 @@
         "laravel-vite-plugin": "^0.8.0",
         "sass": "^1.56.1",
         "vite": "^4.0.0"
+    },
+    "dependencies": {
+        "dotenv": "^16.3.1",
+        "express": "^4.18.2",
+        "nodemon": "^3.0.1",
+        "openai": "^4.6.0",
+        "popper": "^1.0.1",
+        "twilio": "^4.17.0"
     }
 }
