@@ -1,0 +1,73 @@
+
+
+    /* Estilos para el contenedor del chat */
+    .chat-container {
+        background-color: #f3e4e4;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Estilos para los mensajes */
+    .message-container {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        margin-bottom: 10px;
+    }
+
+    .message.sent {
+        background-color: #dadbdc;
+        color: #fff;
+        border-radius: 5px;
+        padding: 10px;
+        text-align: left;
+    }
+
+    .message img {
+        width: 30px;
+        height: 30px;
+        margin-left: 10px;
+    }
+
+    /* Estilos para el botón de enviar */
+    #enviar-mensaje {
+        background-color: #b398df;
+        border: none;
+        color: #fff;
+    }
+
+    /* Estilos para el campo de entrada de texto */
+    #input-mensaje {
+        border-radius: 5px;
+    }
+
+    .message {
+        /* Estilos generales para los mensajes */
+        margin: 10px;
+        padding: 10px;
+        border-radius: 5px;
+    }
+    
+    .message.received {
+        /* Estilos específicos para los mensajes recibidos */
+        background-color: #e1e1e1;
+        text-align: left;
+    }
+    
+    .content {
+        /* Estilos para el contenido dentro de un mensaje */
+        padding-right: 20px; /* Espacio a la derecha para el nombre */
+    }
+    
+    .name {
+        /* Estilos para el nombre del remitente */
+        font-weight: bold;
+        color:black;
+    }
+    
+    .msg {
+        /* Estilos para el texto del mensaje */
+        color: #131010;
+    }
+  
