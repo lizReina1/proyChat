@@ -7,7 +7,7 @@ const options = {
   headers: {
     accept: 'application/json',
     'content-type': 'application/json',
-    authorization: 'Basic YjNOallYSmtaV3h5YVc4NE9VQm5iV0ZwYkM1amIyMDpFUEVDUXpDMDJFUHZqb0pNaTVnTl8='
+    authorization: 'Basic ZG10bWR5NTZjMlZuY3pkQWJIVm9aV011WTI5dDprV1JPWUdxNDQ4SDYyQmhwZzFQY0c'
   },
   body: {
     script: {
@@ -34,7 +34,7 @@ const options1 = {
   url: 'https://api.d-id.com/talks/tlk_fWR6IOQje6g40gN5vpYME',
   headers: {
     accept: 'application/json',
-    authorization: 'Basic YjNOallYSmtaV3h5YVc4NE9VQm5iV0ZwYkM1amIyMDpFUEVDUXpDMDJFUHZqb0pNaTVnTl8='
+    authorization: 'Basic YUc5aVpYYzJNemcxTUVCcGNHNTFZeTVqYjIwOlV0cWxpaFN3WTEwcnNyZHAzamtaaw=='
   }
 };
 
@@ -43,10 +43,9 @@ request(options1, function (error, response, body) {
 
   console.log(body);
 }); */
-
  const request = require('request'); // Asegúrate de que tienes 'request' instalado
 
- function enviarMensaje(mensaje) {
+function enviarMensaje(mensaje) {
    return new Promise((resolve, reject) => {
      const options = {
        method: 'POST',
@@ -54,8 +53,8 @@ request(options1, function (error, response, body) {
        headers: {
          accept: 'application/json',
          'content-type': 'application/json',
-         authorization: 'Basic YUc5aVpYYzJNemcxTUVCcGNHNTFZeTVqYjIwOlV0cWxpaFN3WTEwcnNyZHAzamtaaw=='
-       },
+         authorization: 'Basic ZG10bWR5NTZjMlZuY3pkQWJIVm9aV011WTI5dDprV1JPWUdxNDQ4SDYyQmhwZzFQY0c='
+                },
        body: {
          script: {
            type: 'text',
@@ -79,7 +78,7 @@ request(options1, function (error, response, body) {
    });
  }
  
- function enviar(mensaje) {
+function enviar(mensaje) {
    return new Promise((resolve, reject) => {
      enviarMensaje(mensaje)
        .then((messageId) => {
@@ -88,8 +87,7 @@ request(options1, function (error, response, body) {
            url: `https://api.d-id.com/talks/${messageId}`,
            headers: {
              accept: 'application/json',
-             authorization: 'Basic YUc5aVpYYzJNemcxTUVCcGNHNTFZeTVqYjIwOlV0cWxpaFN3WTEwcnNyZHAzamtaaw=='
-           }
+             authorization: 'Basic ZG10bWR5NTZjMlZuY3pkQWJIVm9aV011WTI5dDprV1JPWUdxNDQ4SDYyQmhwZzFQY0c='                       } 
          };
  
          // Realiza la solicitud GET
@@ -98,7 +96,12 @@ request(options1, function (error, response, body) {
              console.error("Hubo un error en la solicitud GET:", error);
              reject(error);
            } else {
-             console.log("Respuesta de la solicitud GET:", body);
+
+            const obj = JSON.parse(body);
+             console.log("Respuesta de la solicitud GET mendsje:",body);
+
+
+
              resolve(body); // Resuelve la promesa con la respuesta de la solicitud GET
            }
          });
