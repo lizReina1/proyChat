@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
     /* twilio.sendTextMessage(req.body.WaId, erq.body.Body);
     res.status(200).json({ ok: true, msg: "Mensaje enviado correctamente" });
  */
-    did.enviarMensaje('hola que haces')
+    did.enviar(req.body.Body)
     .then((result_url) => {
       console.log('result_url:', result_url);
     })
