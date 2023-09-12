@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.appChat')
 
 @section('content')
 <div class="container overflow-hidden">
@@ -6,7 +6,7 @@
         <div class="col">
             <div class="p-3 border bg-light">
                 <video class="w-100" autoplay loop muted controls>
-                    <source src="{{ asset('.mp4') }}" type="video/mp4" />
+                    <source src="{{ asset('video/vid.mp4') }}" type="video/mp4" />
                 </video>
             </div>
         </div>
