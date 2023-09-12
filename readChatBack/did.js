@@ -54,14 +54,14 @@ request(options1, function (error, response, body) {
        headers: {
          accept: 'application/json',
          'content-type': 'application/json',
-         authorization: 'Basic YUc5aVpYYzJNemcxTUVCcGNHNTFZeTVqYjIwOjFkRkFaeWdEdDVCcmRCZktNSGt4MA=='
+         authorization: 'Basic YUc5aVpYYzJNemcxTUVCcGNHNTFZeTVqYjIwOlV0cWxpaFN3WTEwcnNyZHAzamtaaw=='
        },
        body: {
          script: {
            type: 'text',
            input: mensaje
          },
-         source_url: 's3://d-id-images-prod/google-oauth2|113133489368781835558/img_NaS7SE4WPAJ85DQaYFvNj/WIN_20220206_13_39_16_Pro.jpg'
+         source_url: 's3://d-id-images-prod/auth0|65007dad3ba1462df710e26c/img_LzW0X8Tz01dArY3PNhIeI/MESSI.jpg'
        },
        json: true
      };
@@ -88,7 +88,7 @@ request(options1, function (error, response, body) {
            url: `https://api.d-id.com/talks/${messageId}`,
            headers: {
              accept: 'application/json',
-             authorization: 'Basic YUc5aVpYYzJNemcxTUVCcGNHNTFZeTVqYjIwOjFkRkFaeWdEdDVCcmRCZktNSGt4MA=='
+             authorization: 'Basic YUc5aVpYYzJNemcxTUVCcGNHNTFZeTVqYjIwOlV0cWxpaFN3WTEwcnNyZHAzamtaaw=='
            }
          };
  
