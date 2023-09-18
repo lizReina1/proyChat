@@ -38,7 +38,9 @@ async function descargarArchivoMP4(url) {
 }
 
 // Ejemplo de uso
-const urlArchivoMP4 = 'https://www.shutterstock.com/shutterstock/videos/1080319025/preview/stock-footage-abstract-tech-earth-globalization-in-d-motion-graphic-concept-transmit-ai-networking-on-fiber.mp4';
-descargarArchivoMP4(urlArchivoMP4);
+//const urlArchivoMP4 = 'https://d-id-talks-prod.s3.us-west-2.amazonaws.com/auth0%7C65007dad3ba1462df710e26c/tlk_TkJzlEe2raMJLxoVziuTf/1694566532193.mp4?AWSAccessKeyId=AKIA5CUMPJBIK65W6FGA&Expires=1694652934&Signature=LLPLWZ4bt7qXT5wINt9itKXR6Qg%3D&X-Amzn-Trace-Id=Root%3D1-65010886-1eb9881f3d0fc312252e8d45%3BParent%3D6798cceaf860f730%3BSampled%3D1%3BLineage%3D6b931dd4%3A0';
+
+//const urlArchivoMP4 = 'https://www.shutterstock.com/shutterstock/videos/1080319025/preview/stock-footage-abstract-tech-earth-globalization-in-d-motion-graphic-concept-transmit-ai-networking-on-fiber.mp4';
+//descargarArchivoMP4(urlArchivoMP4);
 
 module.exports = {descargarArchivoMP4};
