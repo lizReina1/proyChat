@@ -33,7 +33,7 @@ function buscarPista(titulo) {
 }
 
 
-// Función para obtener el enlace de una pista por su ID
+// Obtener link de la pista
 function PistaId(idPista) {
   const options = {
     method: 'GET',
