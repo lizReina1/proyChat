@@ -9,59 +9,97 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/app.css" rel="stylesheet">
-    <!-- Livewire Styles --><style >[wire\:loading], [wire\:loading\.delay], [wire\:loading\.inline-block], [wire\:loading\.inline], [wire\:loading\.block], [wire\:loading\.flex], [wire\:loading\.table], [wire\:loading\.grid], [wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short], [wire\:loading\.delay\.long], [wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest] {display:none;}[wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}[x-cloak] {display: none;}</style>
+    <!-- Livewire Styles -->
+    <style>
+        [wire\:loading],
+        [wire\:loading\.delay],
+        [wire\:loading\.inline-block],
+        [wire\:loading\.inline],
+        [wire\:loading\.block],
+        [wire\:loading\.flex],
+        [wire\:loading\.table],
+        [wire\:loading\.grid],
+        [wire\:loading\.inline-flex] {
+            display: none;
+        }
+
+        [wire\:loading\.delay\.shortest],
+        [wire\:loading\.delay\.shorter],
+        [wire\:loading\.delay\.short],
+        [wire\:loading\.delay\.long],
+        [wire\:loading\.delay\.longer],
+        [wire\:loading\.delay\.longest] {
+            display: none;
+        }
+
+        [wire\:offline] {
+            display: none;
+        }
+
+        [wire\:dirty]:not(textarea):not(input):not(select) {
+            display: none;
+        }
+
+        [x-cloak] {
+            display: none;
+        }
+    </style>
 
 
-  <script>
+    <script>
 
 
-    function actualizarVideo() {
-   
-      fetch('/datos')
-     .then((response) => response.json())
-      .then((data) => {
-        // Modifica el HTML con los datos recibidos
-        document.getElementById('id-video').setAttribute('src', data.video);
+        function actualizarVideo() {
 
-        const video = document.getElementById('mivideo');
+            fetch('/datos')
+                .then((response) => response.json())
+                .then((data) => {
+                    // Modifica el HTML con los datos recibidos
+                    document.getElementById('id-video').setAttribute('src', data.video);
 
-           video.load();
-      })
-      .catch((error) => console.error('Error:', error));
-    }
-  </script>
+                    const video = document.getElementById('mivideo');
 
-  <script>
-  let paginaActual = 1; // Inicializamos en la primera página
+                    video.load();
+                })
+                .catch((error) => console.error('Error:', error));
+        }
+    </script>
 
-function llamarBuscarYEnviarMusica() {
-    fetch('/buscarYEnviarMusica', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({})
-})
-.then(response => response.json())
-.then(data => {
-    // Llamar a la función para manejar los datos recibidos
-    manejarDatosMusica(data.resultado);
-})
-.catch(error => console.error('Error:', error));
-}
+    <script>
+        let paginaActual = 1; // Inicializamos en la primera página
 
-    function manejarDatosMusica(resultadoMusica) {
-        
-        const catalogo = document.getElementById('catalogo');
+        function llamarBuscarYEnviarMusica() {
+            fetch('/buscarYEnviarMusica', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({})
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Llamar a la función para manejar los datos recibidos
+                    console.log('Datos recibidos:', data);
+                    //data.load();
+                    //location.reload();
+                    manejarDatosMusica(data.resultado);
+                    
+                })
+                .catch(error => console.error('Error:', error));
+        }
 
-// Limpiar el contenido anterior del catálogo
-catalogo.innerHTML = '';
+        function manejarDatosMusica(resultadoMusica) {
 
-// Verificar si hay resultados
-if (resultadoMusica && resultadoMusica.data && resultadoMusica.data.length > 0) {
-    resultadoMusica.data.forEach(musica => {
-        const musicaElement = document.createElement('div');
-        musicaElement.innerHTML = `
+            const catalogo = document.getElementById('catalogo');
+
+            // Limpiar el contenido anterior del catálogo
+            catalogo.innerHTML = '';
+
+            // Verificar si hay resultados
+            if (resultadoMusica && resultadoMusica.data && resultadoMusica.data.length > 0) {
+                resultadoMusica.data.forEach(musica => {
+                    const musicaElement = document.createElement('div');
+                    musicaElement.innerHTML = `
             <p>Título: ${musica.title}</p>
             <p>Artista: ${musica.artist.name}</p>
             <p>Enlace: <a href="${musica.link}" target="_blank">${musica.link}</a></p>
@@ -72,82 +110,88 @@ if (resultadoMusica && resultadoMusica.data && resultadoMusica.data.length > 0) 
             <hr>
         `;
 
-        catalogo.appendChild(musicaElement);
-    });
-} else {
-    // Mostrar un mensaje si no hay resultados
-    catalogo.innerHTML = '<p>No se encontraron resultados de música.</p>';
-}
-    }
+                    catalogo.appendChild(musicaElement);
+                    
+                });
+            } else {
+                // Mostrar un mensaje si no hay resultados
+                catalogo.innerHTML = '<p>No se encontraron resultados de música.</p>';
+            }
+            //catalogo.load();
+        }
 
-  </script>
+    </script>
 </head>
 
-<body>
+<body onload="llamarBuscarYEnviarMusica()">
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Chat</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    <a class="nav-link active" aria-current="page"  onclick="actualizarVideo()" href="#">actualizar</a>
-                   
-                
-                    <button onclick="actualizarAudio()">Actualizar audio</button>
-                
+                    <a class="nav-link active" aria-current="page" onclick="actualizarVideo()" href="#">actualizar</a>
+
+
+                    <!-- <button onclick="actualizarAudio()">Actualizar audio</button> -->
+
                 </div>
             </div>
         </div>
     </nav>
     <main class="py-4">
         <div class="container overflow-hidden">
-    <div class="row gx-5">
-        <div class="col">
-            <div class="p-3 border bg-light">
-                <video id="mivideo" class="w-100" autoplay loop muted controls>
-                    <source id="id-video" src="/videos/pepito.mp4" type="video/mp4" />
-                </video>
-            </div>
-        </div>
-        <div class="col">
-            <div class="p-3 border bg-light">
-                <div class="card">
-                    <div class="card-header">
-                        Chat
+            <div class="row gx-5">
+                <div class="col">
+                    <div class="p-3 border bg-light">
+                        <video id="mivideo" class="w-100" autoplay loop muted controls>
+                            <source id="id-video" src="/videos/pepito.mp4" type="video/mp4" />
+                        </video>
                     </div>
-                    <div class="card-body">
-                        <div class="chat-box" id="chat-box">
-                            <!-- Tus mensajes existentes aquí -->
-
-                        </div>
-                        <div class="input-group mt-3">
-                            <input type="text" class="form-control" id="input-mensaje" placeholder="Escribe tu mensaje...">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button" id="enviar-mensaje">Enviar</button>
+                </div>
+                <div class="col">
+                    <div class="p-3 border bg-light">
+                        <div class="card">
+                            <div class="card-header">
+                                Chat
                             </div>
+                            <div class="card-body">
+                                <div class="chat-box" id="chat-box">
+                                    <!-- Tus mensajes existentes aquí -->
+
+                                </div>
+                                <div class="input-group mt-3">
+                                    <input type="text" class="form-control" id="input-mensaje"
+                                        placeholder="Escribe tu mensaje...">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="button"
+                                            id="enviar-mensaje">Enviar</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <button onclick="llamarBuscarYEnviarMusica()">Buscar y Enviar Música</button> -->
+
+                            <div id="catalogo"></div>
+
+
                         </div>
                     </div>
-
-                    <button onclick="llamarBuscarYEnviarMusica()">Buscar y Enviar Música</button>
-
-                    <div id="catalogo"></div>
-
-                      
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
-</div>
+        </div>
     </main>
     <!-- Bootstrap JS (jQuery and Popper.js are required for Bootstrap) -->
     <!-- Livewire Scripts -->
-<script src="/livewire/livewire.js?id=51f84ddf"   data-csrf="rzRWU5zwO4xKyt6qba8QDaVQCL5yCShIHPoM6T1O" data-uri="/livewire/update" data-navigate-once="true"></script>
+    <script src="/livewire/livewire.js?id=51f84ddf" data-csrf="rzRWU5zwO4xKyt6qba8QDaVQCL5yCShIHPoM6T1O"
+        data-uri="/livewire/update" data-navigate-once="true"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>

@@ -7,6 +7,7 @@ const download = require("./download.js");
 const utilities = require("./utilities.js");
 const path = require('path');
 const buscarPista  = require("./music.js");
+const { Console } = require("console");
 
 
 
@@ -42,12 +43,36 @@ app.get('/datos', (req, res) => {
 
 
 });
+//input message
+app.post("/webhook",function (req, res) {
+ 
+  pista= req.body.Body;
+  console.log(pista)
+  
+ //recibir y mandar la respuesta de chatgpt
+ //const answerchat = await chat.questionAndAnswer(req.body.Body);
+ /* twilio.sendTextMessage(req.body.WaId, req.body.Body);
+ res.status(200).json({ ok: true, msg: "Mensaje enviado correctamente" });
+
+*/ //did para obtener el link del video
+ /*did.enviar(req.body.Body)
+ .then((result_url) => {
+   //descargar video
+   download.descargarArchivoMP4(result_url);
+   console.log('result_url:', result_url);
+ })
+ .catch((error) => {
+   console.error('Error:', error);
+ });*/
+
+ //pedir musica
+
+}); 
 
 app.post('/buscarYEnviarMusica', (req, res) => {
-  buscarPista.music('freddy mercury')
+  
+  buscarPista.music(pista)
     .then(resultadoBusqueda => {
-      console.log("Resultado de la búsqueda de música:", resultadoBusqueda);
-
       // Enviar la respuesta al cliente
       res.json({ resultado: resultadoBusqueda });
     })
@@ -59,27 +84,7 @@ app.post('/buscarYEnviarMusica', (req, res) => {
 
 
 
-//input message
-  app.post("/webhook",function (req, res) {
-    //recibir y mandar la respuesta de chatgpt
-    //const answerchat = await chat.questionAndAnswer(req.body.Body);
-    /* twilio.sendTextMessage(req.body.WaId, req.body.Body);
-    res.status(200).json({ ok: true, msg: "Mensaje enviado correctamente" });
 
- */ //did para obtener el link del video
-    /*did.enviar(req.body.Body)
-    .then((result_url) => {
-      //descargar video
-      download.descargarArchivoMP4(result_url);
-      console.log('result_url:', result_url);
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });*/
-
-    //pedir musica
-   
-  });
 
 app.listen(3000, () => {
   console.log("servidor montado en el puerto 3000");
