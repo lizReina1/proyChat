@@ -30,6 +30,57 @@
       .catch((error) => console.error('Error:', error));
     }
   </script>
+
+  <script>
+  let paginaActual = 1; // Inicializamos en la primera página
+
+function llamarBuscarYEnviarMusica() {
+    fetch('/buscarYEnviarMusica', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({})
+})
+.then(response => response.json())
+.then(data => {
+    // Llamar a la función para manejar los datos recibidos
+    manejarDatosMusica(data.resultado);
+})
+.catch(error => console.error('Error:', error));
+}
+
+    function manejarDatosMusica(resultadoMusica) {
+        
+        const catalogo = document.getElementById('catalogo');
+
+// Limpiar el contenido anterior del catálogo
+catalogo.innerHTML = '';
+
+// Verificar si hay resultados
+if (resultadoMusica && resultadoMusica.data && resultadoMusica.data.length > 0) {
+    resultadoMusica.data.forEach(musica => {
+        const musicaElement = document.createElement('div');
+        musicaElement.innerHTML = `
+            <p>Título: ${musica.title}</p>
+            <p>Artista: ${musica.artist.name}</p>
+            <p>Enlace: <a href="${musica.link}" target="_blank">${musica.link}</a></p>
+            <audio controls>
+                <source src="${musica.preview}" type="audio/mp3">
+                Tu navegador no soporta la reproducción de audio.
+            </audio>
+            <hr>
+        `;
+
+        catalogo.appendChild(musicaElement);
+    });
+} else {
+    // Mostrar un mensaje si no hay resultados
+    catalogo.innerHTML = '<p>No se encontraron resultados de música.</p>';
+}
+    }
+
+  </script>
 </head>
 
 <body>
@@ -44,7 +95,10 @@
                 <div class="navbar-nav">
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                     <a class="nav-link active" aria-current="page"  onclick="actualizarVideo()" href="#">actualizar</a>
-
+                   
+                
+                    <button onclick="actualizarAudio()">Actualizar audio</button>
+                
                 </div>
             </div>
         </div>
@@ -77,6 +131,12 @@
                             </div>
                         </div>
                     </div>
+
+                    <button onclick="llamarBuscarYEnviarMusica()">Buscar y Enviar Música</button>
+
+                    <div id="catalogo"></div>
+
+                      
                 </div>
             </div>
         </div>

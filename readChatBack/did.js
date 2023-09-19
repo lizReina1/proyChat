@@ -78,43 +78,46 @@ function enviarMensaje(mensaje) {
    });
  }
  
-function enviar(mensaje) {
-   return new Promise((resolve, reject) => {
-     enviarMensaje(mensaje)
-       .then((messageId) => {
-         const options1 = {
-           method: 'GET',
-           url: `https://api.d-id.com/talks/${messageId}`,
-           headers: {
-             accept: 'application/json',
-             authorization: 'Basic ZG10bWR5NTZjMlZuY3pkQWJIVm9aV011WTI5dDprV1JPWUdxNDQ4SDYyQmhwZzFQY0c='                       } 
-         };
- 
-         // Realiza la solicitud GET
-         request(options1, function (error, response, body) {
-           if (error) {
-             console.error("Hubo un error en la solicitud GET:", error);
-             reject(error);
-           } else {
 
-            const obj = JSON.parse(body);
-             console.log("Respuesta de la solicitud GET mendsje:",body);
+ function enviar(mensaje) {
+  return new Promise((resolve, reject) => {
+    enviarMensaje(mensaje)
+      .then((messageId) => {
+        const options1 = {
+          method: 'GET',
+          url: `https://api.d-id.com/talks/${messageId}`,
+          headers: {
+            accept: 'application/json',
+            authorization: 'Basic ZG10bWR5NTZjMlZuY3pkQWJIVm9aV011WTI5dDprV1JPWUdxNDQ4SDYyQmhwZzFQY0c='
+          }
+        };
 
-
-
-             resolve(body); // Resuelve la promesa con la respuesta de la solicitud GET
-           }
-         });
-       })
-       .catch((error) => {
-         console.error("Hubo un error al enviar el mensaje:", error);
-         reject(error);
-       });
-   });
- }
+        // Realiza la solicitud GET
+        request(options1, function (error, response, body) {
+          if (error) {
+            console.error("Hubo un error en la solicitud GET:", error);
+            reject(error);
+          } else {
+            // Parsea el cuerpo JSON
+            const responseBody = JSON.parse(body);
+            if (responseBody && responseBody.pending_url) {
+              console.log("Respuesta de la solicitud GET (result_url):", responseBody.result_url);
+              resolve(responseBody.result_url); // Resuelve la promesa con result_url
+            } else {
+              reject("No se encontró result_url en la respuesta");
+            }
+          }
+        });
+      })
+      .catch((error) => {
+        console.error("Hubo un error al enviar el mensaje:", error);
+        reject(error);
+      });
+  });
+}
  
  // Ejemplo de uso:
- /*enviar("Hola, este es un mensaje de prueba")
+ /*enviar("Hola te habla messi")
    .then((response) => {
      console.log("Respuesta final:", response);
    })

@@ -6,6 +6,8 @@ const did =require("./did.js");
 const download = require("./download.js");
 const utilities = require("./utilities.js");
 const path = require('path');
+const buscarPista  = require("./music.js");
+
 
 
 app.use(express.json());
@@ -41,13 +43,31 @@ app.get('/datos', (req, res) => {
 
 });
 
+app.post('/buscarYEnviarMusica', (req, res) => {
+  buscarPista.music('freddy mercury')
+    .then(resultadoBusqueda => {
+      console.log("Resultado de la búsqueda de música:", resultadoBusqueda);
+
+      // Enviar la respuesta al cliente
+      res.json({ resultado: resultadoBusqueda });
+    })
+    .catch(error => {
+      console.error("Error en la búsqueda de música:", error);
+      res.status(500).json({ error: 'Hubo un error en la búsqueda de música.' });
+    });
+});
+
+
+
 //input message
   app.post("/webhook",function (req, res) {
+    //recibir y mandar la respuesta de chatgpt
     //const answerchat = await chat.questionAndAnswer(req.body.Body);
-    /* twilio.sendTextMessage(req.body.WaId, erq.body.Body);
+    /* twilio.sendTextMessage(req.body.WaId, req.body.Body);
     res.status(200).json({ ok: true, msg: "Mensaje enviado correctamente" });
- */
-    did.enviar(req.body.Body)
+
+ */ //did para obtener el link del video
+    /*did.enviar(req.body.Body)
     .then((result_url) => {
       //descargar video
       download.descargarArchivoMP4(result_url);
@@ -55,7 +75,10 @@ app.get('/datos', (req, res) => {
     })
     .catch((error) => {
       console.error('Error:', error);
-    });
+    });*/
+
+    //pedir musica
+   
   });
 
 app.listen(3000, () => {
