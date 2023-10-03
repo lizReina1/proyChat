@@ -1,0 +1,41 @@
+[
+  {
+    "idGuion": 1,
+    "text": "hola como estas video",
+    "path": "",
+    "status": "false",
+    "type": "v",
+    "orden": 1,
+    "id": 1,
+    "idKey": 1
+  },
+  {
+    "idGuion": 1,
+    "text": "Texto de ejemplo 3",
+    "path": "",
+    "status": "false",
+    "type": "a",
+    "orden": 2,
+    "id": 2,
+    "idKey": 2
+  },
+  {
+    "idGuion": 1,
+    "text": "Texto de ejemplo 3",
+    "path": "",
+    "status": "false",
+    "type": "v",
+    "orden": 3,
+    "id": 3,
+    "idKey": 3
+  },
+  {
+    "idGuion": 1,
+    "text": "Texto de ejemplo 3",
+    "path": "",
+    "status": "false",
+    "type": "a",
+    "orden": 4,
+    "id": 4
+  }
+]

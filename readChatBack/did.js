@@ -44,6 +44,7 @@ request(options1, function (error, response, body) {
   console.log(body);
 }); */
  const request = require('request'); // Asegúrate de que tienes 'request' instalado
+ const utilities = require("./utilities.js");
 
 function enviarMensaje(mensaje) {
    return new Promise((resolve, reject) => {
@@ -53,14 +54,14 @@ function enviarMensaje(mensaje) {
        headers: {
          accept: 'application/json',
          'content-type': 'application/json',
-         authorization: 'Basic ZG10bWR5NTZjMlZuY3pkQWJIVm9aV011WTI5dDprV1JPWUdxNDQ4SDYyQmhwZzFQY0c='
+         authorization:'Basic  Y1hkbGNuUkFlSFZ3YVhZdVkyOXQ6YXoxWmlsVkdIOTVYUzA5R20taUp0'
                 },
        body: {
          script: {
            type: 'text',
            input: mensaje
          },
-         source_url: 's3://d-id-images-prod/auth0|65007dad3ba1462df710e26c/img_LzW0X8Tz01dArY3PNhIeI/MESSI.jpg'
+         source_url: 'https://cdn.pixabay.com/photo/2021/12/09/15/24/woman-6858360_960_720.jpg'
        },
        json: true
      };
@@ -78,6 +79,46 @@ function enviarMensaje(mensaje) {
    });
  }
  
+function getVidetoDID(idVideo){
+  const options1 = {
+    method: 'GET',
+    url: `https://api.d-id.com/talks/${idVideo}`,
+    headers: {
+      accept: 'application/json',
+      authorization: 'Basic  Y1hkbGNuUkFlSFZ3YVhZdVkyOXQ6YXoxWmlsVkdIOTVYUzA5R20taUp0'
+    }
+  };
+    // Realiza la solicitud GET
+    console.log(options1.url);
+
+    return new Promise((resolve,reject)=>{
+      request(options1, function (error, response, body) {
+        console.log("entre peticion");
+        if (error) {
+          console.error("Hubo un error en la solicitud GET:", error);
+          reject(error);
+        } else {
+          // Parsea el cuerpo JSON
+          
+          const responseBody = JSON.parse(body);
+                    
+            if (responseBody && responseBody.result_url != 'undefined' ) {
+              console.log(responseBody.result_url);
+              utilities.downloadFile(responseBody.result_url)
+              .then((outputPath) =>{ 
+                console.log('Archivo descargado exitosamente.');
+                resolve(outputPath);
+
+              }).catch((error) => {
+              console.error('Error al descargar el archivo:', error);  
+              reject("undefined");
+            });
+            }
+        }
+      });
+    });
+}
+
 
  function enviar(mensaje) {
   return new Promise((resolve, reject) => {
@@ -88,7 +129,7 @@ function enviarMensaje(mensaje) {
           url: `https://api.d-id.com/talks/${messageId}`,
           headers: {
             accept: 'application/json',
-            authorization: 'Basic ZG10bWR5NTZjMlZuY3pkQWJIVm9aV011WTI5dDprV1JPWUdxNDQ4SDYyQmhwZzFQY0c='
+            authorization: 'Basic ZG10bWR5NTZjMlZuY3pkQWJIVm9aV011WTI5dDpxRTdzdm9OZnpMaFBjd3RMQ1BQSnU='
           }
         };
 
@@ -117,13 +158,22 @@ function enviarMensaje(mensaje) {
 }
  
  // Ejemplo de uso:
- /*enviar("Hola te habla messi")
+/*  enviar("Hola te habla messi")
    .then((response) => {
      console.log("Respuesta final:", response);
    })
    .catch((error) => {
      console.error("Error en el proceso:", error);
-   });*/
+   });tlk_1naTc59xDvwWPFarxXuqR
+  */
  
-module.exports = {enviar};
+  // enviarMensaje('prueba video 2');
+
+  getVidetoDID('tlk_H5JPcN3cg8N5kCKyWPTYa').then((response) => {
+    console.log("Respuesta final:", response);
+  })
+  .catch((error) => {
+    console.error("Error en el proceso:", error);
+  });
+module.exports = {enviarMensaje, getVidetoDID};
  
