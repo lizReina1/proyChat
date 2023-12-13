@@ -1,9 +1,9 @@
-const accountSid = 'AC6683a513fbecff8bdbc65e7304cb5188';
-const authToken = 'AC6683a513fbecff8bdbc65e7304cb5188';
+const accountSid = 'AC891712d12e70aa1c8db092bfd37d7947';
+const authToken = '2d284c3f7761bb8088094e5246c1d1f4';
 
-const client = require("twilio")(accountSid, authToken);
+import client  from  "twilio";
 
-function sendTextMessage(sender, message) {
+export function sendTextMessage(sender, message) {
   return new Promise((resolve, reject) => {
     client.messages
       .create({
@@ -16,6 +16,3 @@ function sendTextMessage(sender, message) {
   });
 }
 
-module.exports = {
-  sendTextMessage,
-};

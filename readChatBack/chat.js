@@ -1,35 +1,39 @@
-
-const { Configuration, OpenAIApi } = require("openai");
-
-const config = new Configuration({
-	apiKey: "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",
-});
-
-const openai = new OpenAIApi(config);
-
-const questionAndAnswer = async (prompt) => {
-	try {
-	  const openaiResponse = await openai.createCompletion({
-		model: "text-davinci-003",
-		prompt: prompt,
-		max_tokens: 2048,
-		temperature: 1,
+export const openia = function (lenguaje) {
+	const http = require("https");
+  
+	const options = {
+	  method: "POST",
+	  hostname: "chatgpt-api8.p.rapidapi.com",
+	  port: null,
+	  path: "/",
+	  headers: {
+		"content-type": "application/json",
+		"X-RapidAPI-Key": "d1cf35b25emsh223468b8fd93b97p156dd9jsn0a3671e97c80",
+		"X-RapidAPI-Host": "chatgpt-api8.p.rapidapi.com",
+	  },
+	};
+  
+	const req = http.request(options, function (res) {
+	  const chunks = [];
+  
+	  res.on("data", function (chunk) {
+		chunks.push(chunk);
 	  });
   
-	  const parsableJSONresponse = openaiResponse.data.choices[0].text;
-	  //console.log(openaiResponse.data.choices[0].text);
-	  return parsableJSONresponse;
+	  res.on("end", function () {
+		const body = Buffer.concat(chunks);
+		console.log(body.toString());
+	  });
+	});
+	var xml = mxUtils.getXml(ui.editor.getGraphXml());
+	req.write(
+	  JSON.stringify([
+		{
+		  content: `del siguiente codigo xml quiero que interpretes el diagrama de secuencia que esta y una vez interpretado me lo devuelvas en ${lenguaje} la interpretacion con todas las logicas que creas correctas y que tu respuesta sea el codigo java con todas las logicas este es el xml ${xml}`,
+		  role: "user",
+		},
+	  ])
+	);
+    req.end();
 
-	} catch (error) {
-
-	  console.error("Error al llamar a la API de OpenAI:", error);
-	  return "Lo siento, no puedo responder en este momento. Por favor, inténtalo más tarde.";
-	  
-	}
   };
-  
- //questionAndAnswer('que es una ip')
-module.exports = {
-	questionAndAnswer,
-  };
-
